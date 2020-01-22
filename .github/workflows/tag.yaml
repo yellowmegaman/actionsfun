@@ -32,7 +32,7 @@ jobs:
           release_name: ${{ github.ref }}
           body: |
             Changes in this release
-            ${{ steps.create_release.outputs.changelog }}
+            ${{ steps.buildah.outputs.changelog }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
