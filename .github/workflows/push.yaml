@@ -1,0 +1,15 @@
+on:
+  push:
+name: Upload Release Asset
+
+jobs:
+  build:
+    name: push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Build project
+        run: |
+          echo "linter1"
+          echo "linter2"

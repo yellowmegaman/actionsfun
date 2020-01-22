@@ -1,0 +1,65 @@
+on:
+  tag:
+name: release story
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Build project # This would actually build your project, using zip for an example artifact
+        run: |
+          date | tee theartifact
+          env | sort
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-f$
+          asset_path: ./theartifact
+          asset_name: theartifact
+          asset_content_type: text/xml
+
+
+# ${BRANCH}.${NUMBER}.${GIT_HASH_SHORT}
+
+#Wed Jan 22 08:00:37 UTC 2020
+#AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
+#ANDROID_HOME=/usr/local/lib/android/sdk
+#ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
+#ANT_HOME=/usr/share/ant
+#BOOST_ROOT=/usr/local/share/boost/1.69.0
+#BOOST_ROOT_1_69_0=/usr/local/share/boost/1.69.0
+#CHROMEWEBDRIVER=/usr/bin/chromedriver
+#CHROME_BIN=/usr/bin/google-chrome
+#CONDA=/usr/share/miniconda
+#DEPLOYMENT_BASEPATH=/opt/runner
+#DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+#GITHUB_ACTION=run
+#GITHUB_ACTIONS=true
+#GITHUB_ACTOR=yellowmegaman
+#GITHUB_BASE_REF=
+#GITHUB_EVENT_NAME=push
+#GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
+#GITHUB_HEAD_REF=
+#GITHUB_REF=refs/heads/master
+#GITHUB_REPOSITORY=yellowmegaman/actionsfun
+#GITHUB_RUN_ID=30225168
+#GITHUB_RUN_NUMBER=2
+#GITHUB_SHA=55c6d78ce86bf6687785868812632c26cbe5a380
+#GITHUB_WORKFLOW=Upload Release Asset
+#GITHUB_WORKSPACE=/home/runner/work/actionsfun/actionsfun
+#GOROOT=/usr/local/go1.12
