@@ -14,10 +14,11 @@ jobs:
         id: buildah
         run: |
           date | tee theartifact
-          echo "Changes: $(date)" | tee CHANGELOG
+          echo "Mkay: $(date)" | tee CHANGELOG
           env | sort
           echo "::set-env name=branch_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
           echo ::set-output name=branch_name_output::$(echo $GITHUB_REF | cut -d '/' -f3)
+          echo ::set-output name=changelog::$(cat CHANGELOG)
       - name: check env
         run: |
           echo $BRANCH_NAME
@@ -29,7 +30,9 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          bodyFile: CHANGELOG
+          body: |
+            Changes in this release
+            ${{ steps.create_release.outputs.changelog }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
