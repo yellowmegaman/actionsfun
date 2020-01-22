@@ -1,4 +1,4 @@
-name: tag flow
+name: CI
 on:
   push:
 jobs:
@@ -17,6 +17,7 @@ jobs:
     name: tag
     needs: lint
     runs-on: ubuntu-latest
+    if: contains(github.ref, 'tags')
     steps:
       - name: checkout code
         uses: actions/checkout@master
