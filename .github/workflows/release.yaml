@@ -10,10 +10,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
       - name: Build project # This would actually build your project, using zip for an example artifact
+        id: buildah
         run: |
           date | tee theartifact
           env | sort
           echo "::set-env name=branch_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
+          echo ::set-output name=branch_name_output::$(echo $GITHUB_REF | cut -d '/' -f3)"
       - name: check env
         run: |
           echo $BRANCH_NAME
@@ -23,8 +25,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.BRANCH_NAME }}
-          release_name: Release ${{ env.BRANCH_NAME }}
+          tag_name: ${{ steps.buildah.outputs.branch_name_output }}
+          release_name: Release ${{ steps.buildah.outputs.branch_name_output }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
