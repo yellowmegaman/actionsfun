@@ -1,5 +1,7 @@
 on:
   push:
+    tag:
+      - '!v.*'
 name: push flow
 
 jobs:
