@@ -12,7 +12,6 @@ jobs:
         run: |
           echo "linter1"
           echo "linter2"
-          env | sort
   build:
     name: tag
     needs: lint
@@ -24,8 +23,7 @@ jobs:
       - name: build project
         id: buildah
         run: |
-          echo "Mkay: $(date)" | tee CHANGELOG
-          echo "Ebaz: $(date)" | tee -a CHANGELOG
+          env | sort | tee -a CHANGELOG
           changelog=$(cat CHANGELOG)
           changelog="${changelog//'%'/'%25'}"
           changelog="${changelog//$'\n'/'%0A'}"
