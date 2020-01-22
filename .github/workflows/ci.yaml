@@ -12,6 +12,7 @@ jobs:
         run: |
           echo "linter1"
           echo "linter2"
+          packer version
   build:
     name: tag
     needs: lint
