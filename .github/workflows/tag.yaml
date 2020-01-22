@@ -35,8 +35,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           body: |
-            Changes in this release
-            "${{ steps.buildah.outputs.changelog }}"
+            Changes in this release:
+            ${{ steps.buildah.outputs.changelog }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
