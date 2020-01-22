@@ -1,5 +1,7 @@
 on:
-  tag:
+  push:
+    tags:
+      - *
 name: release story
 jobs:
   build:
