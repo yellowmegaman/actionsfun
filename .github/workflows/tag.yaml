@@ -16,10 +16,13 @@ jobs:
           date | tee theartifact
           echo "Mkay: $(date)" | tee CHANGELOG
           echo "Ebaz: $(date)" | tee -a CHANGELOG
-          env | sort
+          changelog=$(cat CHANGELOG)
+          changelog="${changelog//'%'/'%25'}"
+          changelog="${changelog//$'\n'/'%0A'}"
+          changelog="${changelog//$'\r'/'%0D'}"
           echo "::set-env name=branch_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
-          echo ::set-output name=branch_name_output::$(echo $GITHUB_REF | cut -d '/' -f3)
-          echo ::set-output name=changelog::"$(cat CHANGELOG)"
+          echo "::set-output name=branch_name_output::$(echo $GITHUB_REF | cut -d '/' -f3)"
+          echo "::set-output name=changelog::$changelog"
       - name: check env
         run: |
           echo $BRANCH_NAME
