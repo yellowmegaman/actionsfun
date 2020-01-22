@@ -15,6 +15,7 @@ jobs:
         run: |
           date | tee theartifact
           echo "Mkay: $(date)" | tee CHANGELOG
+          echo "Eba: $(date)" | tee -a CHANGELOG"
           env | sort
           echo "::set-env name=branch_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
           echo ::set-output name=branch_name_output::$(echo $GITHUB_REF | cut -d '/' -f3)
