@@ -14,10 +14,10 @@ jobs:
         run: |
           echo "linter1"
           echo "linter2"
+	  env | sort
   build:
     name: tag
     needs: lint
-    if: tags == 'v.*'
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
