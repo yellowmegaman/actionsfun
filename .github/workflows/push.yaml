@@ -1,7 +1,9 @@
 on:
   push:
-    tags:
-      - '!v.*' 
+    branches:
+      - '**'
+    tags-ignore:
+      - '*.*' 
 name: push flow
 
 jobs:
