@@ -6,7 +6,6 @@ on:
 jobs:
   build:
     name: tag
-    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
