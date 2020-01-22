@@ -13,6 +13,10 @@ jobs:
         run: |
           date | tee theartifact
           env | sort
+          echo "::set-env name=branch_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
+      - name: check env
+        run: |
+          echo $BRANCH_NAME
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.0
@@ -36,31 +40,76 @@ jobs:
 
 
 # ${BRANCH}.${NUMBER}.${GIT_HASH_SHORT}
-
-#Wed Jan 22 08:00:37 UTC 2020
-#AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
-#ANDROID_HOME=/usr/local/lib/android/sdk
-#ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
-#ANT_HOME=/usr/share/ant
-#BOOST_ROOT=/usr/local/share/boost/1.69.0
-#BOOST_ROOT_1_69_0=/usr/local/share/boost/1.69.0
-#CHROMEWEBDRIVER=/usr/bin/chromedriver
-#CHROME_BIN=/usr/bin/google-chrome
-#CONDA=/usr/share/miniconda
-#DEPLOYMENT_BASEPATH=/opt/runner
-#DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
-#GITHUB_ACTION=run
-#GITHUB_ACTIONS=true
-#GITHUB_ACTOR=yellowmegaman
-#GITHUB_BASE_REF=
-#GITHUB_EVENT_NAME=push
-#GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
-#GITHUB_HEAD_REF=
-#GITHUB_REF=refs/heads/master
-#GITHUB_REPOSITORY=yellowmegaman/actionsfun
-#GITHUB_RUN_ID=30225168
-#GITHUB_RUN_NUMBER=2
-#GITHUB_SHA=55c6d78ce86bf6687785868812632c26cbe5a380
-#GITHUB_WORKFLOW=Upload Release Asset
-#GITHUB_WORKSPACE=/home/runner/work/actionsfun/actionsfun
-#GOROOT=/usr/local/go1.12
+#
+#2020-01-22T08:40:31.1182349Z ##[endgroup]
+#2020-01-22T08:40:31.7571704Z Wed Jan 22 08:40:31 UTC 2020
+#2020-01-22T08:40:31.7583598Z AGENT_TOOLSDIRECTORY=/opt/hostedtoolcache
+#2020-01-22T08:40:31.7583852Z ANDROID_HOME=/usr/local/lib/android/sdk
+#2020-01-22T08:40:31.7584171Z ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
+#2020-01-22T08:40:31.7584362Z ANT_HOME=/usr/share/ant
+#2020-01-22T08:40:31.7584640Z BOOST_ROOT=/usr/local/share/boost/1.69.0
+#2020-01-22T08:40:31.7584926Z BOOST_ROOT_1_69_0=/usr/local/share/boost/1.69.0
+#2020-01-22T08:40:31.7585126Z CHROMEWEBDRIVER=/usr/bin/chromedriver
+#2020-01-22T08:40:31.7585860Z CHROME_BIN=/usr/bin/google-chrome
+#2020-01-22T08:40:31.7586586Z CONDA=/usr/share/miniconda
+#2020-01-22T08:40:31.7586715Z DEPLOYMENT_BASEPATH=/opt/runner
+#2020-01-22T08:40:31.7586979Z DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+#2020-01-22T08:40:31.7587223Z GITHUB_ACTION=run
+#2020-01-22T08:40:31.7587392Z GITHUB_ACTIONS=true
+#2020-01-22T08:40:31.7587512Z GITHUB_ACTOR=yellowmegaman
+#2020-01-22T08:40:31.7587617Z GITHUB_BASE_REF=
+#2020-01-22T08:40:31.7587735Z GITHUB_EVENT_NAME=release
+#2020-01-22T08:40:31.7587861Z GITHUB_EVENT_PATH=/home/runner/work/_temp/_github_workflow/event.json
+#2020-01-22T08:40:31.7587992Z GITHUB_HEAD_REF=
+#2020-01-22T08:40:31.7588094Z GITHUB_REF=refs/tags/testcheck
+#2020-01-22T08:40:31.7588214Z GITHUB_REPOSITORY=yellowmegaman/actionsfun
+#2020-01-22T08:40:31.7588335Z GITHUB_RUN_ID=30235791
+#2020-01-22T08:40:31.7588453Z GITHUB_RUN_NUMBER=5
+#2020-01-22T08:40:31.7588556Z GITHUB_SHA=719fe1d86b3d49f690c0bea8695cc583403fbcdf
+#2020-01-22T08:40:31.7588681Z GITHUB_WORKFLOW=release story
+#2020-01-22T08:40:31.7588970Z GITHUB_WORKSPACE=/home/runner/work/actionsfun/actionsfun
+#2020-01-22T08:40:31.7589117Z GOROOT=/usr/local/go1.12
+#2020-01-22T08:40:31.7589336Z GOROOT_1_11_X64=/usr/local/go1.11
+#2020-01-22T08:40:31.7589506Z GOROOT_1_12_X64=/usr/local/go1.12
+#2020-01-22T08:40:31.7589737Z GOROOT_1_13_X64=/usr/local/go1.13
+#2020-01-22T08:40:31.7589899Z GRADLE_HOME=/usr/share/gradle
+#2020-01-22T08:40:31.7590005Z HOME=/home/runner
+#2020-01-22T08:40:31.7590237Z INVOCATION_ID=623465913331444fadd08378e88d741e
+#2020-01-22T08:40:31.7590472Z ImageVersion=20200119.1
+#2020-01-22T08:40:31.7591293Z JAVA_HOME=/usr/lib/jvm/zulu-8-azure-amd64
+#2020-01-22T08:40:31.7591806Z JAVA_HOME_11_X64=/usr/lib/jvm/zulu-11-azure-amd64
+#2020-01-22T08:40:31.7592762Z JAVA_HOME_12_X64=/usr/lib/jvm/zulu-12-azure-amd64
+#2020-01-22T08:40:31.7593354Z JAVA_HOME_7_X64=/usr/lib/jvm/zulu-7-azure-amd64
+#2020-01-22T08:40:31.7593906Z JAVA_HOME_8_X64=/usr/lib/jvm/zulu-8-azure-amd64
+#2020-01-22T08:40:31.7594238Z JOURNAL_STREAM=9:30356
+#2020-01-22T08:40:31.7594978Z LANG=C.UTF-8
+#2020-01-22T08:40:31.7595513Z LEIN_HOME=/usr/local/lib/lein
+#2020-01-22T08:40:31.7596167Z LEIN_JAR=/usr/local/lib/lein/self-installs/leiningen-2.9.1-standalone.jar
+#2020-01-22T08:40:31.7596483Z M2_HOME=/usr/share/apache-maven-3.6.3
+#2020-01-22T08:40:31.7596972Z PATH=/usr/share/rust/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+#2020-01-22T08:40:31.7597239Z PERFLOG_LOCATION_SETTING=RUNNER_PERFLOG
+#2020-01-22T08:40:31.7597490Z PWD=/home/runner/work/actionsfun/actionsfun
+#2020-01-22T08:40:31.7597888Z RUNNER_OS=Linux
+#2020-01-22T08:40:31.7598131Z RUNNER_PERFLOG=/home/runner/perflog
+#2020-01-22T08:40:31.7598295Z RUNNER_TEMP=/home/runner/work/_temp
+#2020-01-22T08:40:31.7598426Z RUNNER_TOOL_CACHE=/opt/hostedtoolcache
+#2020-01-22T08:40:31.7598802Z RUNNER_TRACKING_ID=github_7948066c-e83e-48f8-844f-59dbe520e8d0
+#2020-01-22T08:40:31.7599122Z RUNNER_USER=runner
+#2020-01-22T08:40:31.7599236Z RUNNER_WORKSPACE=/home/runner/work/actionsfun
+#2020-01-22T08:40:31.7599571Z SELENIUM_JAR_PATH=/usr/share/java/selenium-server-standalone.jar
+#2020-01-22T08:40:31.7599732Z SHLVL=1
+#2020-01-22T08:40:31.7600040Z USER=runner
+#2020-01-22T08:40:31.7600224Z VCPKG_INSTALLATION_ROOT=/usr/local/share/vcpkg
+#2020-01-22T08:40:31.7600516Z _=/usr/bin/env
+#2020-01-22T08:40:31.7727020Z ##[group]Run actions/create-release@v1.0.0
+#2020-01-22T08:40:31.7727190Z with:
+#2020-01-22T08:40:31.7727299Z   tag_name: refs/tags/testcheck
+#2020-01-22T08:40:31.7727425Z   release_name: Release refs/tags/testcheck
+#2020-01-22T08:40:31.7727549Z   draft: false
+#2020-01-22T08:40:31.7727670Z   prerelease: false
+#2020-01-22T08:40:31.7727772Z env:
+#2020-01-22T08:40:31.7728095Z   GITHUB_TOKEN: ***
+#2020-01-22T08:40:31.7728226Z ##[endgroup]
+#2020-01-22T08:40:32.0497782Z ##[error]Validation Failed
+#2020-01-22T08:40:32.0576509Z ##[error]Node run failed with exit code 1
+#2020-01-22T08:40:32.0592454Z Cleaning up orphan processes
