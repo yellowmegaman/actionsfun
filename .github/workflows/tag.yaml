@@ -1,11 +1,23 @@
 name: tag flow
 on:
   push:
-    tags:
-      - 'v.*'
+#    tags:
+#      - 'v.*'
 jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@master
+      - name: build project
+        run: |
+          echo "linter1"
+          echo "linter2"
   build:
     name: tag
+    needs: lint
+    if: tags == 'v.*'
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
