@@ -19,7 +19,7 @@ jobs:
           env | sort
           echo "::set-env name=branch_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
           echo ::set-output name=branch_name_output::$(echo $GITHUB_REF | cut -d '/' -f3)
-          echo ::set-output name=changelog::$(cat CHANGELOG)
+          echo ::set-output name=changelog::$(echo "$(cat CHANGELOG)")
       - name: check env
         run: |
           echo $BRANCH_NAME
