@@ -1,8 +1,6 @@
 name: tag flow
 on:
   push:
-#    tags:
-#      - 'v.*'
 jobs:
   lint:
     name: lint
