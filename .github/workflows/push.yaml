@@ -1,19 +1,18 @@
+name: push flow
 on:
   push:
     branches:
       - '**'
     tags-ignore:
       - '*.*' 
-name: push flow
-
 jobs:
-  build:
-    name: push
+  lint:
+    name: lint
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@master
-      - name: Build project
+      - name: build project
         run: |
           echo "linter1"
           echo "linter2"
