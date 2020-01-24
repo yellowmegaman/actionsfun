@@ -10,6 +10,8 @@ jobs:
         uses: actions/checkout@master
       - name: packer action
         uses: yellowmegaman/github-action-get-packer@0.0.6
+        run: |
+          version
       - name: build project
         run: |
           echo "linter1"
