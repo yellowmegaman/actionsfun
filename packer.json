@@ -1,28 +1,25 @@
 {
   "variables": {
-    "app": "mmts-backend",
-    "from": "gcr.io/titanium-messenger-001/base-openjdk:latest",
-    "docker_registry": "gcr.io",
-    "project_name": "titanium-messenger-001",
+    "app":             "{{env `GITHUB_WORKFLOW`}}-debian",
+    "from_image":      "debian:{{env `DEBIAN_VERSION`}}-slim",
+    "project_name":    "{{env `PROJECT_NAME`}}",
+    "gosu_ver":        "{{env `GOSU_VERSION`}}",
     "docker_username": "{{env `DOCKER_USERNAME`}}",
     "docker_password": "{{env `DOCKER_PASSWORD`}}",
-    "tag":  "{{env `DRONE_BRANCH`}}{{env `DRONE_BUILD_NUMBER`}}",
-    "scala_version": "{{env `SCALA_VERSION`}}",
-    "project_version": "{{env `PROJECT_VERSION`}}",
-    "drone_workspace": "{{env `DRONE_WORKSPACE`}}"
+    "quay_username":   "{{env `QUAY_USERNAME`}}",
+    "quay_password":   "{{env `QUAY_PASSWORD`}}",
+    "tag":             "{{env `DEBIAN_VERSION`}}"
   },
   "builders":[
     {
       "type": "docker",
-      "login": true,
-      "login_server": "{{user `docker_registry`}}",
-      "login_username": "{{user `docker_username`}}",
-      "login_password": "{{user `docker_password`}}",
       "commit": true,
-      "image": "{{user `from`}}",
-      "run_command": ["-dit", "--name", "{{user `app`}}{{user `tag`}}", "{{.Image}}", "/bin/bash"],
+      "image": "{{user `from_image`}}",
+      "run_command": ["-dit", "--net=host", "{{.Image}}", "/bin/bash"],
       "changes": [
-	"ENTRYPOINT [\"/usr/bin/mmts-backend.entrypoint\"]"
+          "ENV LANG en_US.utf8",
+          "ENV LC_ALL en_US.UTF-8",
+          "ENV LANGUAGE en_US.UTF-8"
       ]
     }
   ],
@@ -30,51 +27,16 @@
     {
         "type": "shell",
         "inline": [
-	  "mkdir -p /etc/{{user `app`}} /usr/local/{{user `app`}} /var/log/{{user `app`}} /etc/{{user `app`}}/migration"
-        ]
-    },
-    {
-        "type": "file",
-        "source": "{{user `drone_workspace`}}/msn-backend/{{user `app`}}.entrypoint",
-        "destination": "/usr/bin/{{user `app`}}.entrypoint"
-    },
-    {
-        "type": "file",
-        "source": "{{user `drone_workspace`}}/msn-backend/{{user `app`}}.hcl",
-        "destination": "/etc/consul-template/{{user `app`}}.hcl"
-    },
-    {
-        "type": "file",
-        "source": "{{user `drone_workspace`}}/geoipcity.mmdb",
-        "destination": "/usr/local/{{user `app`}}/geoipcity.mmdb"
-    },
-    {
-        "type": "file",
-        "source": "{{user `drone_workspace`}}/msn-backend/target/scala-{{user `scala_version`}}/mmts-backend-assembly-{{user `project_version`}}.jar",
-        "destination": "/usr/local/{{user `app`}}/{{user `app`}}.jar"
-    },
-    {
-        "type": "file",
-        "source": "{{user `drone_workspace`}}/server-config/templates/{{user `app`}}/",
-        "destination": "/opt/consul-template"
-    },
-    {
-        "type": "file",
-        "source": "{{user `drone_workspace`}}/server-config/templates/{{user `app`}}/OktosCert.p12",
-        "destination": "/etc/mmts-backend/OktosCert.p12"
-    },
-    {
-        "type": "shell",
-        "inline": [
-          "mv /opt/consul-template/libyjpagent.so /etc/{{user `app`}}/"
-        ]
-    },
-    {
-        "type": "shell",
-        "inline": [
-	  "chmod +x /usr/bin/{{user `app`}}.entrypoint",
-          "echo {{user `tag`}} | tee /etc/buildinfo",
-          "echo backend.version={{user `tag`}} | tee -a /opt/consul-template/application.conf"
+          "mkdir -p /usr/share/man/man1",
+          "apt-get update",
+          "apt-get install -y locales curl gnupg2 gettext procps",
+          "apt-get upgrade -y",
+          "apt-get autoremove --purge -y",
+          "apt-get clean",
+          "localedef -i en_US -c -f UTF-8 -A /etc/locale.alias en_US.UTF-8",
+          "curl -sL https://github.com/tianon/gosu/releases/download/{{user `gosu_ver`}}/gosu-amd64 -o /usr/bin/gosu",
+          "chmod +x /usr/bin/gosu",
+          "rm -rf /var/lib/apt/lists/*"
       ]
     }
   ],
@@ -82,13 +44,12 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `docker_registry`}}/{{user `project_name`}}/{{user `app`}}",
+        "repository": "docker.io/{{user `project_name`}}/{{user `app`}}",
         "tag": "{{user `tag`}}"
       },
       {
         "type": "docker-push",
         "login": true,
-        "login_server": "{{user `docker_registry`}}",
         "login_username": "{{user `docker_username`}}",
         "login_password": "{{user `docker_password`}}"
       }
@@ -96,15 +57,15 @@
     [
       {
         "type": "docker-tag",
-        "repository": "{{user `docker_registry`}}/{{user `project_name`}}/{{user `app`}}",
-        "tag": "latest"
+        "repository": "quay.io/{{user `project_name`}}/{{user `app`}}",
+        "tag": "{{user `tag`}}"
       },
       {
         "type": "docker-push",
         "login": true,
-        "login_server": "{{user `docker_registry`}}",
-        "login_username": "{{user `docker_username`}}",
-        "login_password": "{{user `docker_password`}}"
+        "login_server": "quay.io",
+        "login_username": "{{user `quay_username`}}",
+        "login_password": "{{user `quay_password`}}"
       }
     ]
   ]
