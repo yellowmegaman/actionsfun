@@ -8,10 +8,13 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: packer action
+        uses: yellowmegaman/github-action-get-packer@0.0.6
       - name: build project
         run: |
           echo "linter1"
           echo "linter2"
+          packer version
   build:
     name: tag
     needs: lint
@@ -29,6 +32,10 @@ jobs:
           changelog="${changelog//$'\n'/'%0A'}"
           changelog="${changelog//$'\r'/'%0D'}"
           echo "::set-output name=changelog::$changelog"
+          echo "::set-output name=tag_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
+      - name: create docker image
+        run: |
+          echo hehe
       - name: create release from tag
         id: create_release
         uses: actions/create-release@becafb2
