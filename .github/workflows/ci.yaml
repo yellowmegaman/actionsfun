@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: packer action
-        uses: yellowmegaman/github-action-get-packer@0.0.6
-        run: |
-          version
+      - name: packer validate packer.json
+        uses: docker://hashicorp/packer:1.4.3
+        with:
+          args: validate packer.json
       - name: build project
         run: |
           echo "linter1"
