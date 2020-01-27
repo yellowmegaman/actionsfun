@@ -14,7 +14,8 @@ jobs:
           args: validate packer.json
       - name: docker1
         uses: docker://golang:1.12.15
-        args: go version | tee file
+        with:
+          args: go version | tee file
       - name: check
         run: |
           ls
