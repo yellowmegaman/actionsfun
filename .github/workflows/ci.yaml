@@ -13,7 +13,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v1
         with:
-          go-version: $GO_VERSION
+          go-version: ${{ env.GO_VERSION }}
       - name: packer validate packer.json
         uses: docker://hashicorp/packer:1.4.3
         with:
