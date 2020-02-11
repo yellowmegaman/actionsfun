@@ -18,10 +18,6 @@ jobs:
         uses: docker://hashicorp/packer:1.4.3
         with:
           args: validate packer.json
-      - name: docker1
-        uses: docker://golang:1.12.15
-        with:
-          args: version
       - name: check
         run: |
           ls
