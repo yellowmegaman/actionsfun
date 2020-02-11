@@ -28,7 +28,7 @@ jobs:
           env | sort
       - name: aws version
         run: |
-          aws version
+          aws help
       - name: kubectl version
         run: |
           kubectl version
