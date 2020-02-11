@@ -26,6 +26,9 @@ jobs:
           echo "linter1"
           echo "linter2"
           env | sort
+      - name: aws version
+        run: |
+          aws version
   check:
     name: check
     needs: lint
