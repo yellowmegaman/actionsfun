@@ -29,6 +29,9 @@ jobs:
       - name: aws version
         run: |
           aws version
+      - name: kubectl version
+        run: |
+          kubectl version
   check:
     name: check
     needs: lint
