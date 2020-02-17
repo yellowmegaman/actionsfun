@@ -20,7 +20,7 @@ jobs:
           pr=$(jq '.repository.pulls_url' "$GITHUB_EVENT_PATH")
           echo $pr
       - name: prnum
-        run:  jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH"
+        run:  echo ${{ github.event.pull_request.number }}
       - name: Set up Go ${{env.GO_VERSION}}
         uses: actions/setup-go@v1
         with:
@@ -40,9 +40,6 @@ jobs:
       - name: aws version
         run: |
           aws help
-      - name: kubectl version
-        run: |
-          kubectl version
   check:
     name: check
     needs: lint
