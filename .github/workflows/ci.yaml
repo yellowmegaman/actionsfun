@@ -17,6 +17,8 @@ jobs:
           echo "github.repository = ${{github.repository}}"
           echo "::set-output name=tag_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
           cat /home/runner/work/_temp/_github_workflow/event.json
+      - name: prnum
+        run:  jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH"
       - name: Set up Go ${{env.GO_VERSION}}
         uses: actions/setup-go@v1
         with:
