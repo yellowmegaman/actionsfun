@@ -20,7 +20,7 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: echo "The PR number is $PR_NUMBER"
       - name: check_nginx
-        run:  curl -I -L http://nginx/index.html
+        run:  curl -I -L http://127.0.0.1:8080/index.html
       - name: debug
         run: |
           echo "github.base_ref = ${{github.base_ref}}"
