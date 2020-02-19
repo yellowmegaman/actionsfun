@@ -15,21 +15,12 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: Show PR number
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: echo "The PR number is $PR_NUMBER"
-      - name: check_nginx
-        run:  curl -sL http://127.0.0.1:8080/index.html
+      - name: fire up k3s
+        run:  docker run --name=k3s --rm -ti -d --tmpfs /run --tmpfs /var/run -v $PWD/k3s.yaml:/etc/rancher/k3s/k3s.yaml --privileged -p 6443:6443 rancher/k3s:latest server
+      - name: sleep
+        run:  sleep 60
       - name: debug
-        run: |
-          echo "github.base_ref = ${{github.base_ref}}"
-          echo "github.head_ref = ${{github.head_ref}}"
-          echo "github.repository = ${{github.repository}}"
-          echo "::set-output name=tag_name::$(echo $GITHUB_REF | cut -d '/' -f3)"
-          cat /home/runner/work/_temp/_github_workflow/event.json
-          pr=$(jq '.repository.pulls_url' "$GITHUB_EVENT_PATH")
-          echo $pr
+        run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
       - name: prnum
         run:  echo ${{ github.event.pull_request.number }}
       - name: Set up Go ${{env.GO_VERSION}}
