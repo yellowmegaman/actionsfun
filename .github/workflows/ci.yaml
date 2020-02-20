@@ -21,6 +21,12 @@ jobs:
         run:  sleep 60
       - name: debug
         run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
+      - name: deploy kuard
+        run:  kubectl --kubeconfig k3s.yaml run --restart=Always --image=gcr.io/kuar-demo/kuard-amd64:blue kuard
+      - name: check kuard
+        run: |
+          sleep 10
+          kubectl --kubeconfig k3s.yaml get deploy
       - name: prnum
         run:  echo ${{ github.event.pull_request.number }}
       - name: Set up Go ${{env.GO_VERSION}}
