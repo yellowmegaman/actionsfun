@@ -1,0 +1,14 @@
+name: pr
+on:
+  pull_request:
+env:
+  GO_VERSION: 1.12.15
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@master
+      - name: list things
+        run:  ls -1
