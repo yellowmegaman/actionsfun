@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@master
       - name: list things
         run:  ls -1
+      - name: env
+        run:  env | sort
 #      - name: fire up k3s
 #        run:  docker run --name=k3s --rm -ti -d --tmpfs /run --tmpfs /var/run -v $PWD/k3s.yaml:/etc/rancher/k3s/k3s.yaml --privileged -p 6443:6443 rancher/k3s:latest server
 #      - name: sleep
