@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: pull-request
-      uses: yellowmegaman/prtrigger@v0.7
+      uses: yellowmegaman/prtrigger@v0.8
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
