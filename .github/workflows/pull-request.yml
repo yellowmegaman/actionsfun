@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - feature-1
+    - master
 
 jobs:
   pull-request:
@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: pull-request
-      uses: repo-sync/pull-request@v2
+      uses: yellowmegaman/prtrigger@v0.1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
