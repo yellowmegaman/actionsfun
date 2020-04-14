@@ -29,4 +29,4 @@ jobs:
       - name: check kuard
         run: |
           sleep 10
-          kubectl --kubeconfig k3s.yaml get deploy
+          kubectl --kubeconfig k3s.yaml get po
