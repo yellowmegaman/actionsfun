@@ -1,13 +1,33 @@
+name: shot
 on:
-  push:
-    branches:
-    - master
+  pull_request:
 jobs:
-  pull-request:
+  shot:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: pull-request
-      uses: yellowmegaman/gh-build-canceller@master
+    - name: failstep
+      run:  exit 1
+    - name: debugfail
+      if: failure()
+      run:  echo "yep, it failed"
+    - name: lifecontinues
+      run:  echo "continue"
+      if: failure()
+    - name: runids
+      run:  echo "${{github.run_id}} ${{github.run_number}}"
+    - name: debug
+      run:  env | sort
+    - name: more debug
+      run:  git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    - name: commit
+      id:   commit
+      run:  echo ::set-output name=commit_sha::$(git log --skip 1 -n1 --format=format:%H)
+    - name: debugg
+      run:  echo ${{steps.commit.outputs.commit_sha}}
+    - name: shot
+      uses: yellowmegaman/gh-build-canceller@v1.6
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{secrets.PERSONAL_TOKEN}}
+        workflows_filter: "CI|pr"
+        commit_sha: ${{steps.commit.outputs.commit_sha}}

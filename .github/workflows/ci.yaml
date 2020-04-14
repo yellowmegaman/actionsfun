@@ -18,37 +18,15 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: list things
-        run:  ls -1
-      - name: env
-        run:  env | sort
-#      - name: fire up k3s
-#        run:  docker run --name=k3s --rm -ti -d --tmpfs /run --tmpfs /var/run -v $PWD/k3s.yaml:/etc/rancher/k3s/k3s.yaml --privileged -p 6443:6443 rancher/k3s:latest server
-#      - name: sleep
-#        run:  sleep 60
-#      - name: debug
-#        run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
-#      - name: deploy kuard
-#        run:  kubectl --kubeconfig k3s.yaml run --restart=Always --image=gcr.io/kuar-demo/kuard-amd64:blue kuard
-#      - name: check kuard
-#        run: |
-#          sleep 10
-#          kubectl --kubeconfig k3s.yaml get deploy
-#      - name: prnum
-#        run:  echo ${{ github.event.pull_request.number }}
-#      - name: Set up Go ${{env.GO_VERSION}}
-#        uses: actions/setup-go@v1
-#        with:
-#          go-version: ${{env.GO_VERSION}}
-#      - name: packer validate packer.json
-#        uses: docker://hashicorp/packer:1.4.3
-#        with:
-#          args: validate packer.json
-#      - name: check
-#        run: |
-#          ls
-#      - name: build project
-#        run: |
-#          echo "linter1"
-#          echo "linter2"
-#          env | sort
+      - name: fire up k3s
+        run:  docker run --name=k3s --rm -ti -d --tmpfs /run --tmpfs /var/run -v $PWD/k3s.yaml:/etc/rancher/k3s/k3s.yaml --privileged -p 6443:6443 rancher/k3s:latest server
+      - name: sleep
+        run:  sleep 60
+      - name: debug
+        run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
+      - name: deploy kuard
+        run:  kubectl --kubeconfig k3s.yaml run --restart=Always --image=gcr.io/kuar-demo/kuard-amd64:blue kuard
+      - name: check kuard
+        run: |
+          sleep 10
+          kubectl --kubeconfig k3s.yaml get deploy
