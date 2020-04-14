@@ -6,6 +6,7 @@ on:
   pull_request:
 env:
   GO_VERSION: 1.12.15
+  K3S_TAG: v1.17.4-k3s1
 jobs:
   lint:
     name: lint
@@ -19,9 +20,11 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: fire up k3s
-        run:  docker run --name=k3s --rm -ti -d --tmpfs /run --tmpfs /var/run -v $PWD/k3s.yaml:/etc/rancher/k3s/k3s.yaml --privileged -p 6443:6443 rancher/k3s:latest server
+        run: |
+          touch "$HOME"/k3s.yaml
+          docker run -d --name=k3s --privileged --tmpfs /run --tmpfs /var/run -e "K3S_TOKEN=197813248412582" -p 6443:6443 -v "$PWD"/k3s.yaml:/etc/rancher/k3s/k3s.yaml rancher/k3s:$K3S_TAG server
       - name: sleep
-        run:  sleep 60
+        run:  sleep 10
       - name: debug
         run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
       - name: deploy kuard
