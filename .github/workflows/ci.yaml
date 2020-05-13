@@ -18,6 +18,8 @@ jobs:
         run: env | sort
       - name: hostname
         run: hostname
+      - name: debug
+        run: dig +noall +answer $(hostname)
       - name: run registry
         run: docker run -d -p 5000:5000 --restart=always --name registry registry:2
       - name: get kuard
