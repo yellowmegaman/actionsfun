@@ -18,6 +18,8 @@ jobs:
         run: env | sort
       - name: hostname
         run: hostname
+      - name: debugifconfig
+        run: sudo ifconfig
       - name: debug
         run: dig +short $(hostname)
       - name: run registry
