@@ -34,7 +34,6 @@ jobs:
         run:  sleep 20
       - name: debug
         run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
-      - name: pull kuard
       - name: deploy kuard
         run:  kubectl --kubeconfig k3s.yaml run --restart=Always --image=ci/kuard:yayci kuard
       - name: check kuard
