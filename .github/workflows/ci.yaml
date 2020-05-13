@@ -35,8 +35,9 @@ jobs:
       - name: debug
         run:  kubectl --kubeconfig k3s.yaml get po --all-namespaces
       - name: deploy kuard
-        run:  kubectl --kubeconfig k3s.yaml run --restart=Always --image=ci/kuard:yayci kuard
+        run:  kubectl --kubeconfig k3s.yaml run --restart=Always --image=ci:5000/kuard:yayci kuard
       - name: check kuard
         run: |
           sleep 10
           kubectl --kubeconfig k3s.yaml get po
+          kubectl --kubeconfig k3s.yaml describe po kuard
