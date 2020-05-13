@@ -1,0 +1,4 @@
+mirrors:
+  "ci":
+    endpoint:
+      - "http://localhost:5000"
