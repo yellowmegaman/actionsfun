@@ -11,14 +11,13 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    services:
-      nginx:
-        image: nginx
-        ports:
-          - 8080:80
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: env
+        run: env | sort
+      - name: hostname
+        run: hostname
       - name: fire up k3s
         run: |
           touch "$HOME"/k3s.yaml
