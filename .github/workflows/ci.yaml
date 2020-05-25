@@ -22,7 +22,9 @@ jobs:
         with:
           runner_hostname: ${{steps.hostname.outputs.runner_hostname}}
       - name: check docker
-        run: docker ps -a
+        run: |
+          docker ps -a
+          docker logs k3s
       - name: try to use kubeconfig
         run: |
           echo ${{steps.k3s.outputs.kubeconfig}}
