@@ -32,7 +32,7 @@ jobs:
           custom_registry: true
       - name: try to use kubeconfig
         run: |
-          echo "${{steps.k3s.outputs.kubeconfig}}" | tee k3s.yaml
+          echo "${{steps.k3s.outputs.kubeconfig}}" | sudo tee k3s.yaml
           kubectl get ns
 
 
