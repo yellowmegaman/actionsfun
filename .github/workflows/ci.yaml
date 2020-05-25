@@ -16,12 +16,6 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: get kubectl
-        run: |
-          curl -L -s --create-dirs https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl -o bin/kubectl
-          chmod +x $GITHUB_WORKSPACE/bin/kubectl
-      - name: add workspace/bin to path
-        run: echo "::add-path::$GITHUB_WORKSPACE/bin"
       - name: k3s
         id: k3s
         uses: yellowmegaman/k3s-gha@master
