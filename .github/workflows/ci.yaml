@@ -22,14 +22,10 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/bin/kubectl
       - name: add workspace/bin to path
         run: echo "::add-path::$GITHUB_WORKSPACE/bin"
-      - name: hostname
-        id: hostname
-        run: echo "::set-output name=runner_hostname::$(hostname)"
       - name: k3s
         id: k3s
         uses: yellowmegaman/k3s-gha@master
         with:
-          runner_hostname: ${{steps.hostname.outputs.runner_hostname}}
           custom_registry: true
       - name: try to use kubeconfig
         run: kubectl get ns
