@@ -6,6 +6,7 @@ on:
   pull_request:
 env:
   GO_VERSION: 1.12.15
+  KUBECTL_VERSION: v1.18.1
   K3S_TAG: v1.17.4-k3s1
   KUBECONFIG: k3s.yaml
 jobs:
