@@ -17,6 +17,8 @@ jobs:
       - name: hostname
         id: hostname
         run: echo "::set-output name=runner_hostname::$(hostname)"
+      - name: debug
+        run: pwd
       - name: k3s
         uses: yellowmegaman/k3s-gha@master
         with:
