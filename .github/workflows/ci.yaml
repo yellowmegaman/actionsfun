@@ -25,10 +25,11 @@ jobs:
           runner_hostname: ${{steps.hostname.outputs.runner_hostname}}
           custom_registry: true
       - name: check docker
-        run: |
-          docker ps -a
-          docker logs k3s
-          sudo journalctl -u docker
+        run: docker ps -a
+      - name: logs docker
+        run: docker logs k3s
+      - name: docker daemon logs
+        run: sudo journalctl -u docker
       - name: try to use kubeconfig
         run: |
           echo ${{steps.k3s.outputs.kubeconfig}}
