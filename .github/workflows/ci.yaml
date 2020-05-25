@@ -20,7 +20,6 @@ jobs:
       - name: k3s
         uses: yellowmegaman/k3s-gha@master
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
           runner_hostname: ${{steps.hostname.outputs.runner_hostname}}
       - name: check docker
         run: docker ps -a
