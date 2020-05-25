@@ -15,16 +15,18 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: hostname
-        run: hostname
+        id: hostname
+        run: echo "::set-output name=runner_hostname::$(hostname)"
       - name: k3s
         uses: yellowmegaman/k3s-gha@master
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
+          runner_hostname: ${{steps.info.outputs.build_version}}
       - name: check docker
         run: docker ps
       - name: try to use kubeconfig
         run: |
-          echo ${{ steps.k3s.outputs.kubeconfig }}
+          echo ${{steps.k3s.outputs.kubeconfig}}
 #      - name: run registry
 #        run: docker run -d -p 5000:5000 --restart=always --name registry registry:2
 #      - name: get kuard
