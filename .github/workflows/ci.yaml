@@ -25,6 +25,7 @@ jobs:
         run: |
           docker ps -a
           docker logs k3s
+          sudo journalctl -u docker
       - name: try to use kubeconfig
         run: |
           echo ${{steps.k3s.outputs.kubeconfig}}
