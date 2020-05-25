@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: hostname
+        run: hostname
       - name: k3s
         uses: yellowmegaman/k3s-gha@master
         with:
