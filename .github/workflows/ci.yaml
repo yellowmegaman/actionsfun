@@ -22,6 +22,13 @@ jobs:
         run: sudo ifconfig
       - name: debug
         run: dig +short $(hostname)
+      - name: shot
+        uses: yellowmegaman/gh-build-canceller@v1.3
+        with:
+          github_token: ${{secrets.PERSONAL_TOKEN}}
+      - name: check docker
+        run: docker ps
+        workflows_filter: "common"
       - name: run registry
         run: docker run -d -p 5000:5000 --restart=always --name registry registry:2
       - name: get kuard
