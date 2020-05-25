@@ -23,6 +23,7 @@ jobs:
         uses: yellowmegaman/k3s-gha@master
         with:
           runner_hostname: ${{steps.hostname.outputs.runner_hostname}}
+          custom_registry: true
       - name: check docker
         run: |
           docker ps -a
