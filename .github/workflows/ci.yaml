@@ -18,6 +18,5 @@ jobs:
         uses: insolar/k3s-gha@master
         with:
           custom_registry: true
-          registries_yaml_path: hey/registries.yaml
       - name: try to use kubeconfig
         run: kubectl get ns
