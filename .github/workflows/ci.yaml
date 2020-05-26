@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@master
       - name: k3s
         id: k3s
-        uses: insolar/k3s-gha@229abed7cf3d5616d984671677df555695eb54b4
+        uses: insolar/k3s-gha@f3b16e21be0eb6477ae96add88c335601454efda
         with:
           custom_registry: true
           registries_yaml_path: hey/registries.yaml
