@@ -19,6 +19,8 @@ jobs:
           echo hola  | tee bin/report
       - name: debug
         run: echo ${{github.ref}}
+      - name: debug
+        run: env | sort
       - name: create GH release
         id: create_release
         uses: actions/create-release@becafb2
