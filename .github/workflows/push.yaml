@@ -9,6 +9,6 @@ jobs:
       - name: checkout code
         uses: actions/checkout@master
       - name: build code
-        run: echo "::set-env name=aa::17"
+        run: echo "::set-env name=AA::${GITHUB_SHA:0:8}"
       - name: envcheck
         run: env | sort
