@@ -14,8 +14,9 @@ jobs:
         uses: actions/checkout@master
       - name: build code
         run: |
-          echo hello | tee metricreplicator
-          echo hola  | tee report
+          mkdir bin
+          echo hello | tee bin/metricreplicator
+          echo hola  | tee bin/report
       - name: create GH release
         id: create_release
         uses: actions/create-release@becafb2
