@@ -16,5 +16,5 @@ jobs:
         run: echo ${GITHUB_SHA:0:8}
       - name: funn with $(echo ${GITHUB_SHA:0:8})
         run: echo yo
-      - name: funnn with ${{GITHUB_SHA:0:8}}
+      - name: funnn with ${{github.sha}}
         run: echo aaaand
