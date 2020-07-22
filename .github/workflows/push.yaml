@@ -1,6 +1,8 @@
 name: insolar
 on:
   push:
+env:
+  GOPATH: /home/runner/work/
 jobs:
   up:
     name: up
