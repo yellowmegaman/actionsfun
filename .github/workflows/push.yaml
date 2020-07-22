@@ -18,3 +18,5 @@ jobs:
         run: echo yo
       - name: funnn with ${{github.sha}}
         run: echo aaaand
+      - name: funnn with ${{github.sha:0:8}}
+        run: echo aaaand
