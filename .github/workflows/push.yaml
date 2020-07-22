@@ -12,3 +12,6 @@ jobs:
         run: echo "::set-env name=AA::${GITHUB_SHA:0:8}"
       - name: envcheck
         run: env | sort
+      - name: fun with ${GITHUB_SHA:0:8}
+        run: echo ${GITHUB_SHA:0:8}
+      - name: funn with $(echo ${GITHUB_SHA:0:8})
