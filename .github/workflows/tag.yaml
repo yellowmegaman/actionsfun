@@ -17,6 +17,8 @@ jobs:
           mkdir bin
           echo hello | tee bin/metricreplicator
           echo hola  | tee bin/report
+      - name: debug
+        run: echo ${{github.ref}}
       - name: create GH release
         id: create_release
         uses: actions/create-release@becafb2
