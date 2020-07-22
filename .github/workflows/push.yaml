@@ -18,3 +18,9 @@ jobs:
         run: echo yo
       - name: funnn with ${{github.sha}}
         run: echo aaaand
+      - name: check PATH
+        run: echo $PATH
+      - name: Add bin to path
+        run: echo "::add-path::${{ env.GOPATH }}/bin:$GITHUB_WORKSPACE/bin"
+      - name: chack path again
+        run: echo $PATH
