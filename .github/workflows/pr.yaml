@@ -10,16 +10,16 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: list things
-        run:  ls -1
-      - name: commit
-        run:  git rev-parse --verify HEAD
-      - name: debug
-        run:  env | sort
-      - name: fail
-        run:  exit 1
-      - name: slack
-        if: failure()
-        run: curl -s ${{secrets.SLACK_URL}} -d '{"text":"Lint failed for https://github.com/'$GITHUB_REPOSITORY'/pull/'$(echo $GITHUB_REF | cut -d '/' -f3)'"}'
-      - name: sleepy
-        run:  sleep 120
+      - name: heh
+        id: shortSha
+        run: | 
+          echo "::set-output name=shortSha::${GITHUB_SHA:0:8}"
+      - name: output
+        run: echo "${{steps.shortSha.outputs.shortSha}}"
+      - name: run-id
+        run: |
+          echo ${{github.run_id}}
+          echo ${{github.run_number}}
+      - name: env
+        run: env | sort
+      
