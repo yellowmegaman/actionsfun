@@ -3,6 +3,7 @@ on:
   push:
 env:
   GOPATH: /home/runner/work/
+  GOOGLE_CREDENTIALS: ${{secrets.GOOGLE_CREDENTIALS}}
 jobs:
   up:
     name: up
@@ -16,6 +17,8 @@ jobs:
         run:  kubectl --help
       - name: check jq
         run: jq --help
+      - name: save google creds json
+        run:  echo "$GOOGLE_CREDENTIALS" | jq | tee google.json &>/dev/null
       - name: build code
         run: echo "::set-env name=AA::${GITHUB_SHA:0:8}"
       - name: envcheck
