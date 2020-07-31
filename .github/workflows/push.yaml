@@ -18,7 +18,7 @@ jobs:
       - name: check jq
         run: jq --help
       - name: save google creds json
-        run:  echo "$GOOGLE_CREDENTIALS" | jq | tee google.json &>/dev/null
+        run:  echo "$GOOGLE_CREDENTIALS" | jq | dd of=google.json
       - name: debug
         run: |
           ls
