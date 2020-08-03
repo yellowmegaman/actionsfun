@@ -58,5 +58,5 @@ jobs:
     needs: job1
     steps:
     - run: |
-        echo ${{fromJson(needs.job1.outputs.matrix)}}
+        echo ${{fromJson(needs.job1.outputs.testoutput)}}
 
