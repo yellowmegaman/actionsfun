@@ -47,7 +47,7 @@ jobs:
         id: test1
         run: |
           echo "somedata" | tee myfile
-          echo "::set-output name=result::${cat myfile}"
+          echo "::set-output name=result::$(cat myfile)"
   job2:
     runs-on: ubuntu-latest
     needs: job1
