@@ -53,3 +53,17 @@ jobs:
         with:
           name: ${{matrix.target}}-scaling.csv
           path: scaling.csv
+  ve-perf-report:
+    name: ve-perf-report
+    needs: ve-perf-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout test
+        uses: actions/checkout@v2
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2
+      - name: concatenate all csv's
+        run: |
+          ls
+          tree
+          for log in $(ls aks-*/*.csv | awk '{gsub(/[^[0-9]]*/,"");print}' | sort -n); do cat aks-*/aks-"$log"node*.csv; done | tee scaling.csv
