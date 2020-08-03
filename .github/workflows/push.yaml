@@ -39,7 +39,6 @@ jobs:
         run: echo $PATH
   ve-perf-test:
     name: ve-perf-test
-    needs: prepare
     runs-on: ubuntu-latest
     strategy:
       matrix:
