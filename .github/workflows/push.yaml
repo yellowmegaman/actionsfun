@@ -56,7 +56,7 @@ jobs:
           path: result-${{matrix.target}}
   job_2:
     name: eba
-    needs: job_1
+    needs: job1
     runs-on: windows-latest
     steps:
       - name: Download
