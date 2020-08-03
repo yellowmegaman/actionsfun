@@ -53,4 +53,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: result-${{matrix.target}}
-          path: file-${{matrix.target}}
+          path: result-${{matrix.target}}
