@@ -46,11 +46,11 @@ jobs:
     steps:
       - name: hullo
         run: |
-          echo "data for $TARGET" | tee myfile
+          echo "data for $TARGET" | tee result-${{matrix.target}}
         env:
           TARGET: ${{matrix.target}}
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: homework-${{matrix.target}}
+          name: result-${{matrix.target}}
           path: file-${{matrix.target}}
