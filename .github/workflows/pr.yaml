@@ -23,4 +23,4 @@ jobs:
       - name: env
         run: env | sort
       - name: debug
-        run: echo ${{github.ref.replace(/^refs\/(heads|tags)\//, "")}}
+        run: echo ${{github.ref}} | cut -d '/' -f3
