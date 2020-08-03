@@ -23,4 +23,4 @@ jobs:
       - name: env
         run: env | sort
       - name: debug
-        run: echo ${{context.ref}}
+        run: echo ${{github.ref}}
