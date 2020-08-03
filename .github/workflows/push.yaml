@@ -43,19 +43,14 @@ jobs:
     strategy:
       matrix:
         target: [aks-5node, aks-10node, aks-15node, aks-20node]
-    outputs:
-      testoutput: ${{ steps.test1.outputs.aks-5node }}
     steps:
       - name: hullo
-        id: test1
         run: |
           echo "data for $TARGET" | tee myfile
-          echo "::set-output name=${{matrix.target}}::$(cat myfile)"
         env:
           TARGET: ${{matrix.target}}
-  job2:
-    runs-on: ubuntu-latest
-    needs: job1
-    steps:
-    - run: echo ${{fromJson(needs.job1.outputs.testoutput)}}
-
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: homework-${{matrix.target}}
+          path: file-${{matrix.target}}
