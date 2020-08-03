@@ -37,29 +37,20 @@ jobs:
         run: echo "::add-path::${{ env.GOPATH }}/bin:$GITHUB_WORKSPACE/bin"
       - name: chack path again
         run: echo $PATH
-  job1:
-    name: job1
+  ve-perf-test:
+    name: ve-perf-test
+    needs: prepare
     runs-on: ubuntu-latest
     strategy:
       matrix:
         target: [aks-5node, aks-10node, aks-15node, aks-20node]
     steps:
-      - name: hullo
-        run: |
-          echo "data for $TARGET" | tee result-${{matrix.target}}
-        env:
-          TARGET: ${{matrix.target}}
+      - name: Checkout test
+        uses: actions/checkout@v2
+      - name: upload
+        run: echo ${{matrix.target}} | tee scaling.csv
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: result-${{matrix.target}}
-          path: result-${{matrix.target}}
-  job_2:
-    name: eba
-    needs: job1
-    runs-on: windows-latest
-    steps:
-      - name: Download
-        uses: actions/download-artifact@v2
-      - name: debug
-        run:  ls
+          name: ${{matrix.target}}-scaling.csv
+          path: scaling.csv
