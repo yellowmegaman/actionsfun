@@ -23,4 +23,4 @@ jobs:
       - name: env
         run: env | sort
       - name: debug
-        run: echo "pull-${{github.ref.replace(/^refs\/(heads|tags)\//, "").replace(/\//g, "-")}}"
+        run: echo ${{github.ref.replace(/^refs\/(heads|tags)\//, "")}}
