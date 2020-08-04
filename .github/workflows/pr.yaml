@@ -32,4 +32,4 @@ jobs:
       - name: env
         run: env | sort
         env:
-          EBA: ${REPORT_WEBDAV_DIRECTORY}
+          EBA: ${env.REPORT_WEBDAV_DIRECTORY}
