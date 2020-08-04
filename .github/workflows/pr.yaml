@@ -24,3 +24,5 @@ jobs:
         run: env | sort
       - name: debug
         run: echo "pull-$(echo ${{github.ref}} | cut -d '/' -f3)"
+      - name: format
+        run: echo "$(date +"%Y%m%d-%H%M")-pull-$(echo ${{github.ref}} | cut -d '/' -f3)-${GITHUB_SHA:0:8}"
