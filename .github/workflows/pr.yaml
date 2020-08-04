@@ -28,7 +28,7 @@ jobs:
         run: echo "$(date +"%Y%m%d-%H%M")-pull-$(echo ${{github.ref}} | cut -d '/' -f3)-${GITHUB_SHA:0:8}"
       - name: set var
         run: |
-          echo "::set-env name=REPORT_WEBDAV_DIRECTORY::$(date +"%Y%m%d-%H%M")-pull-$(echo ${{github.ref}} | cut -d '/' -f3)-${GITHUB_SHA:0:8}
+          echo "::set-env name=REPORT_WEBDAV_DIRECTORY::$(date +"%Y%m%d-%H%M")-pull-$(echo ${{github.ref}} | cut -d '/' -f3)-${GITHUB_SHA:0:8}"
       - name: env
         run: env | sort
         env:
