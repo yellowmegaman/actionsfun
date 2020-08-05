@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
+      - name: ee
+        run: git describe --tags
       - name: heh
         id: shortSha
         run: | 
