@@ -10,13 +10,5 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@master
-      - name: logs
-        run: |
-          mkdir logs
-          date | tee logs/one.log
-          date | tee logs/two.log
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: logs
-          path: logs
+      - name: check helm
+        run: helm version
